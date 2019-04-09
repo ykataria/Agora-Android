@@ -70,3 +70,5 @@ requires xcode.
 ## Built With
 
 * Flutter
+## I am the only contributer for this repo as jwick007 and ykataria both are my github IDs
+
