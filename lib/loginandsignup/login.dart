@@ -49,9 +49,9 @@ class _LoginState extends State<Login> {
 
         temp = Map.from(receivedData['data']['token']);
 
-        print("token is : $temp");
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString("token", temp['token']);
+        await prefs.setString("username", receivedData['data']['username']);
+        await prefs.setString("pass", passwordController.text);
 
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
           builder: (context) {

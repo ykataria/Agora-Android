@@ -12,7 +12,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  String token;
+  String username;
+  String password;
   Map<dynamic, dynamic> rdata = {};
 
   @override
@@ -23,18 +24,26 @@ class _SplashScreenState extends State<SplashScreen> {
 
   checkUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    token = prefs.getString('token');
+    username = prefs.getString('username');
+    password = prefs.getString('pass');
 
-    print("Token is : $token");
-    if (token != null) {
+    print("Username is : $username");
+    print("Password is : $password");
+
+    if (username != null && password != null) {
       print("Inside if");
-      Map<String, String> data = {"X-Auth-Token": token.toString()};
+ 
+      Map<String, String> data = {
+        "identifier": username.toString(),
+        "password": password.toString()
+      };
       MakeRequest makeRequest =
-          MakeRequest("http://agora-rest-api.herokuapp.com/api/v1/user", data);
+          MakeRequest("http://agora-rest-api.herokuapp.com/api/v1/auth/login", data);
 
       try {
-        rdata = await makeRequest.getrequest();
+        rdata = await makeRequest.postrequest();
         print("Data is ${rdata['status']}");
+        print("Data is $rdata");
         if (rdata['status'] == 200) {
           Future.delayed(
             Duration(seconds: 3),

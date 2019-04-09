@@ -64,8 +64,12 @@ class _DashBoardState extends State<DashBoard> {
   logoutFunction() async {
     int status;
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      token = prefs.getString('token');
+      Map<String,String> temp;
+
+      temp = Map.from(widget.data['token']);
+
+      print("Temp is $temp");
+      token = temp['token'];
       print("token is : $token");
 
 
